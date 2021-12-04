@@ -46,7 +46,7 @@ vertical <- df |>
   summarize(sum(value)) |> 
   pull()
 
-result <- horizontal * vertical
+horizontal * vertical
 ```
 
 
@@ -54,68 +54,27 @@ result <- horizontal * vertical
 
 
 ```{r}
-# The horizontal position does not change?
-
-
-aim_function <- function(x) {
-  
-}
-
-forward <- df |> 
-  filter(dir == "forward") |> 
-  pull()
+# The horizontal position does not change
 
 aim <- 0
+horizontal <- 0
+vertical <- 0
 
 for (i in 1:nrow(df)) {
 
-  while (df$dir[i] != "forward") {
-    aim <- aim + df$value[i]
-    i <- i + 1
-    
-  }
+  value <- df$value[i]
+  dir <- df$dir[i]
   
-  for (j in 1:length(forward)) {
+  if (dir == "forward") {
     
+    horizontal <- horizontal + value
+    vertical <- vertical + aim * value
+  } else {
+    aim <- aim + value
   }
-  depth <- aim * 
 }
 
-
-
-
-aim <- 0
-depth <- 0
-  
-for (i in 1:nrow(df)) {
-  
-  while (df$dir[i] != "forward") {
-    aim <- aim + df$value[i]
-    i <- i + 1
-  }
-  depth <- depth + df$value[i] * aim
-  
-}
-
-depth * horizontal
-
-directions <- tribble(
-  ~dir, ~ x, ~ y,
-  "down", 0, 1,
-  "up", 0, -1,
-  "forward", 1, 0
-)
-
-
-joined <- tibble(input = input) |> 
-  separate(input, into = c("dir", "value"), sep = " ") |> 
-  inner_join(directions) |> 
-  mutate(value = as.numeric(value),
-         aim = cumsum(y * value)) |> 
-  summarize(horizontal = sum(value * x),
-            depth = sum(aim * value * x),
-            product = horizontal * depth)
-
+horizontal * depth
 
 
 ```
