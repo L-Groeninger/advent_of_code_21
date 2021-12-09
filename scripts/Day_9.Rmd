@@ -28,6 +28,17 @@ library(here)
 
 
 
+```{r}
+input <- readLines(here("data", "Day9_test_input_1.txt")) |> 
+  str_split("") |> 
+  map(as.numeric) |> 
+  unlist() |> 
+  matrix(ncol = 10, byrow = TRUE)
+
+
+
+
+```
 
 
 
